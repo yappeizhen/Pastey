@@ -1,13 +1,13 @@
 {
-    "compilerOptions": {
-      "target": "ESNext",
-      "module": "CommonJS",
-      // other shared compiler options
-    },
-    "references": [
-      { "path": "./frontend" },
-      { "path": "./backend" },
-      { "path": "./shared" }
-    ]
-  }
-  
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "CommonJS",
+    "declaration": true,
+    "composite": true
+  },
+  "references": [
+    { "path": "./frontend" },
+    { "path": "./backend" },
+    { "path": "./shared" }
+  ]
+}
