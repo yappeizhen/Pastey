@@ -31,4 +31,4 @@ COPY --from=backend-builder /app/dist ./dist
 COPY ./backend/package*.json ./
 RUN npm install --production
 EXPOSE 8080
-CMD ["npm", "start"]
+CMD ["npm", "start:dev"]
