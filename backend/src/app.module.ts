@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { SnippetModule } from './snippet/snippet.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { SnippetController } from './snippet/snippet.controller';
+import { SnippetService } from './snippet/snippet.service';
+import { Snippet } from './entities/snippet.entity';
 
 @Module({
   imports: [
@@ -17,9 +19,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       synchronize: true,
       autoLoadEntities: true,
     }),
-    SnippetModule,
+    TypeOrmModule.forFeature([Snippet]),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, SnippetController],
+  providers: [AppService, SnippetService],
 })
 export class AppModule {}

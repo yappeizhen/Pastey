@@ -5,18 +5,15 @@ export class Snippet {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column('varchar', { length: 255 })
   title: string;
 
-  @Column()
+  @Column('text')
   content: string;
 
   @Column({ default: 0 })
   views: number;
 
-  @Column()
-  createdAt: Date;
-
-  @Column()
-  expiresAt: Date;
+  @Column({ nullable: true })
+  expiry: Date | null;
 }
