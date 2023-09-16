@@ -26,6 +26,14 @@ In the root folder of the repository:
 $ npm install
 ```
 
+#### Environment Setup
+
+Create a backend/.env file in your root folder by making a copy of backend/.env.example. If you are running your own
+
+```bash
+cp backend/.env.example .env
+```
+
 #### Run locally
 
 Start up the local development environment with full infrastructure by running:
