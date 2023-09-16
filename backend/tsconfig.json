@@ -8,6 +8,5 @@
     "composite": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
-  },
-  "references": [{ "path": "../shared" }]
+  }
 }
