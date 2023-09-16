@@ -29,7 +29,7 @@ Create a backend/.env file in your root folder by making a copy of backend/.env.
 
 - If you are running your own postgres (not via docker-compose), update the variables accordingly.
 
-```bash
+```sh
 cp backend/.env.example .env
 ```
 
@@ -66,7 +66,7 @@ Fetch a list of active snippets, with optional pagination and sorting.
 
 #### Example Request
 
-```bash
+```sh
 curl http://localhost:8080/snippets?page=1&limit=10&sortBy=dateCreated&order=DESC
 ```
 
@@ -88,7 +88,7 @@ Fetch a snippet by its ID.
 
 #### Example Request
 
-```bash
+```sh
 curl http://localhost:8080/snippets/1
 ```
 
@@ -116,7 +116,7 @@ Create a new snippet.
 
 #### Example Request
 
-```bash
+```sh
 curl -X POST http://localhost:3000/snippets -d '{"content":"Hello, world!", "title":"My Snippet", "minsToExpiry": 60}'
 ```
 
