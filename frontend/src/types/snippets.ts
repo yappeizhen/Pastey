@@ -11,3 +11,7 @@ export type GetSnippetRes = {
   content: string;
   dateCreated: Date;
 };
+export type GetPaginatedSnippets = {
+  snippets: GetSnippetRes[];
+  numPages: number;
+};

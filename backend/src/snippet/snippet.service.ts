@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, SelectQueryBuilder } from 'typeorm';
 import { Snippet } from '../entities/snippet.entity';
+import { SortTypes } from '../constants/sort';
 
 @Injectable()
 export class SnippetService {
@@ -18,7 +19,7 @@ export class SnippetService {
     const snippet = new Snippet();
     snippet.content = content;
     snippet.title = title;
-    snippet.minsToExpiry = minsToExpiry ?? null;
+    snippet.minsToExpiry = minsToExpiry;
     return await this.snippetRepository.save(snippet);
   }
 
@@ -41,8 +42,22 @@ export class SnippetService {
     return updateSnippet;
   }
 
-  async getActiveSnippets(): Promise<Snippet[]> {
-    const snippets = await this.getQueryWithExpiry().getMany();
-    return snippets;
+  async getActiveSnippets({
+    page,
+    limit,
+    sortBy,
+    order,
+  }: {
+    page: number;
+    limit: number;
+    sortBy: SortTypes;
+    order: 'ASC' | 'DESC';
+  }): Promise<{ snippets: Snippet[]; numPages: number }> {
+    const [snippets, numPages] = await this.getQueryWithExpiry()
+      .addOrderBy(sortBy, order)
+      .skip((page - 1) * limit)
+      .take(limit)
+      .getManyAndCount();
+    return { snippets, numPages };
   }
 }
