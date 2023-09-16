@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { MoreThan, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Snippet } from '../entities/snippet.entity';
 
 @Injectable()
@@ -13,21 +13,24 @@ export class SnippetService {
   async createSnippet(
     content: string,
     title: string,
-    minsToExpiry?: Date,
+    minsToExpiry: number,
   ): Promise<Snippet> {
     const snippet = new Snippet();
     snippet.content = content;
     snippet.title = title;
-    snippet.minsToExpiry = minsToExpiry || null;
+    snippet.minsToExpiry = minsToExpiry ?? null;
     return await this.snippetRepository.save(snippet);
   }
 
   async getActiveSnippets(): Promise<Snippet[]> {
-    const now = new Date();
-    return await this.snippetRepository.find({
-      where: {
-        minsToExpiry: MoreThan(now),
-      },
-    });
+    const currentDate = new Date();
+    const snippets = await this.snippetRepository
+      .createQueryBuilder('snippet')
+      .where(
+        `(snippet.dateCreated + snippet.minsToExpiry * INTERVAL '1 minute') > :currentDate`,
+        { currentDate: currentDate.toISOString() },
+      )
+      .getMany();
+    return snippets;
   }
 }

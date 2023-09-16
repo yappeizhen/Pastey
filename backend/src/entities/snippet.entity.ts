@@ -1,4 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class Snippet {
@@ -14,6 +19,9 @@ export class Snippet {
   @Column({ default: 0 })
   views: number;
 
-  @Column({ nullable: true })
-  minsToExpiry: Date | null;
+  @Column('int')
+  minsToExpiry: number;
+
+  @CreateDateColumn()
+  dateCreated: Date;
 }

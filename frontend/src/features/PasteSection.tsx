@@ -22,7 +22,8 @@ import landingVector from "../assets/landing-vector.png";
 import { FaArrowDown } from "react-icons/fa";
 import { AppHeader } from "../components/AppHeader";
 import { useState } from "react";
-import { useSnippetContext } from "../contexts/SnippetContext";
+import { GetSnippetRes, useSnippetContext } from "../contexts/SnippetContext";
+import SnippetModal from "./SnippetModal";
 
 const moveDown = keyframes({
   "0%": {
@@ -41,24 +42,45 @@ const moveDown = keyframes({
 
 const PasteSection = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [title, setTitle] = useState<string>("");
-  const [minsToExpiry, setMinsToExpiry] = useState<number>();
-  const [snippetContent, setPasty] = useState<string>("");
+  const [title, setTitle] = useState<string | undefined>();
+  const [minsToExpiry, setMinsToExpiry] = useState<number | undefined>();
+  const [snippetContent, setSnippetContent] = useState<string | undefined>();
+  const [newSnippet, setSnippet] = useState<GetSnippetRes | undefined>();
+
   const { addSnippet } = useSnippetContext();
 
   const onSubmit = async () => {
     setIsLoading(true);
-    try {
-      await addSnippet({ title, minsToExpiry, content: snippetContent });
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setIsLoading(false);
+    if (title && snippetContent && minsToExpiry) {
+      try {
+        const newSnippet = await addSnippet({
+          title,
+          minsToExpiry,
+          content: snippetContent,
+        });
+        setSnippet(newSnippet);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
   return (
     <VStack w="full" h="100vh">
+      {newSnippet && (
+        <SnippetModal
+          isOpen={!!newSnippet}
+          onClose={() => {
+            setTitle("");
+            setMinsToExpiry(0);
+            setSnippetContent("");
+            setSnippet(undefined);
+          }}
+          snippet={newSnippet}
+        />
+      )}
       <AppHeader />
       <LandingSection>
         <Stack
@@ -102,7 +124,7 @@ const PasteSection = () => {
 
             <HStack alignItems="center" justifyContent="space-between" gap={4}>
               <FormLabel m={0}>Expiry</FormLabel>
-              <NumberInput w="85%" min={0} keepWithinRange>
+              <NumberInput w="85%" min={0} value={minsToExpiry} keepWithinRange>
                 <NumberInputField
                   placeholder="# of minutes until this expires"
                   value={minsToExpiry}
@@ -117,16 +139,16 @@ const PasteSection = () => {
               </NumberInput>
             </HStack>
             <Textarea
-              h={160}
+              h={148}
               value={snippetContent}
               onChange={(e) => {
-                setPasty(e.target.value);
+                setSnippetContent(e.target.value);
               }}
               placeholder="Paste snippet..."
             />
             <Button
               isLoading={isLoading}
-              isDisabled={!title || !snippetContent}
+              isDisabled={!title || !snippetContent || !minsToExpiry}
               onClick={onSubmit}
             >
               Get URL
