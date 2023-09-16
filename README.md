@@ -28,7 +28,9 @@ $ npm install
 
 #### Environment Setup
 
-Create a backend/.env file in your root folder by making a copy of backend/.env.example. If you are running your own
+Create a backend/.env file in your root folder by making a copy of backend/.env.example.
+
+- If you are running your own postgres (not via docker-compose), update the variables accordingly.
 
 ```bash
 cp backend/.env.example .env
@@ -42,7 +44,10 @@ Start up the local development environment with full infrastructure by running:
 $ npm run start-full
 ```
 
-This should start up the frontend, backend, and a dockerized PosgreSQL database. Backend should now be served from http://localhost:8080 and the frontend should be served from http://localhost:3000.
+This should start up the frontend, backend, and a dockerized PosgreSQL database.
+
+- Backend should now be served from http://localhost:8080
+- Frontend should be served from http://localhost:3000.
 
 # API Documentation
 
