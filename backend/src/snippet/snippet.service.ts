@@ -52,12 +52,12 @@ export class SnippetService {
     limit: number;
     sortBy: SortTypes;
     order: 'ASC' | 'DESC';
-  }): Promise<{ snippets: Snippet[]; numPages: number }> {
-    const [snippets, numPages] = await this.getQueryWithExpiry()
+  }): Promise<{ snippets: Snippet[]; totalNum: number }> {
+    const [snippets, totalNum] = await this.getQueryWithExpiry()
       .addOrderBy(sortBy, order)
       .skip((page - 1) * limit)
       .take(limit)
       .getManyAndCount();
-    return { snippets, numPages };
+    return { snippets, totalNum };
   }
 }

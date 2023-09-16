@@ -4,6 +4,7 @@ import {
   FormControl,
   FormLabel,
   HStack,
+  IconButton,
   Image,
   Input,
   NumberDecrementStepper,
@@ -25,13 +26,14 @@ import {
 } from "@chakra-ui/react";
 import { LandingSection } from "../components/LandingSection";
 import landingVector from "../assets/landing-vector.png";
-import { FaArrowDown } from "react-icons/fa";
+import { FaArrowDown, FaAngleRight, FaAngleLeft } from "react-icons/fa";
 import { AppHeader } from "../components/AppHeader";
 import { useEffect, useState } from "react";
 import { GetSnippetRes } from "../types/snippets";
 import SnippetModal from "../features/SnippetModal";
 import { createSnippet, getPaginatedSnippets } from "../api/snippets";
 import { SortTypes } from "../constants/sort";
+import { MAX_PER_PAGE } from "../constants/api";
 
 const moveDown = keyframes({
   "0%": {
@@ -49,6 +51,7 @@ const moveDown = keyframes({
 });
 
 const LandingPage = () => {
+  const [isFetching, setIsFetching] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [title, setTitle] = useState<string | undefined>();
   const [minsToExpiry, setMinsToExpiry] = useState<number | undefined>();
@@ -60,11 +63,15 @@ const LandingPage = () => {
   const [sortBy, setSortBy] = useState<SortTypes>(SortTypes.dateCreated);
 
   useEffect(() => {
-    getPaginatedSnippets({ page: snippetPage, sortBy }).then((res) => {
-      const { snippets, numPages } = res;
-      setSnippetList(snippets);
-      setTotalPages(numPages);
-    });
+    setIsFetching(true);
+    getPaginatedSnippets({ page: snippetPage, sortBy })
+      .then((res) => {
+        const { snippets, totalNum } = res;
+        setSnippetList(snippets);
+        setTotalPages(Math.floor(totalNum / MAX_PER_PAGE));
+      })
+      .catch((err) => console.error(err))
+      .finally(() => setIsFetching(false));
   }, [snippetPage, sortBy, newSnippet]);
 
   const onSubmit = async () => {
@@ -205,14 +212,26 @@ const LandingPage = () => {
           </Flex>
         </Flex>
       </VStack>
-      <VStack w="full" minH="100vh" bg="slate.50" p={100} gap={8}>
+      <VStack
+        w="full"
+        minH="100vh"
+        bg="slate.50"
+        p={{ base: 8, sm: 20 }}
+        gap={4}
+        justifyContent="center"
+        alignItems="center"
+      >
         <Text textStyle="h1" textAlign="center">
           All Snippets
         </Text>
         {snippetList.length > 0 ? (
-          <TableContainer>
+          <VStack w="full">
             <FormControl>
-              <HStack justifyContent={"flex-end"} alignItems={"center"} mb={8}>
+              <HStack
+                justifyContent={{ base: "center", sm: "flex-end" }}
+                alignItems={"center"}
+                mb={4}
+              >
                 <FormLabel m={0}>Sort by: </FormLabel>
                 <Select
                   defaultValue={SortTypes.dateCreated}
@@ -227,17 +246,24 @@ const LandingPage = () => {
                 </Select>
               </HStack>
             </FormControl>
-            <Table>
-              <Thead>
-                <Tr>
-                  <Th>No.</Th>
-                  <Th>Title</Th>
-                  <Th>Content</Th>
-                  <Th>Views</Th>
-                  <Th>URL</Th>
-                  <Th>Expiry (min)</Th>
-                  <Th>Date Created</Th>
-                </Tr>
+            <TableContainer
+              h={480}
+              w="full"
+              overflowY="scroll"
+              overflowX="scroll"
+            >
+              <Table>
+                <Thead>
+                  <Tr>
+                    <Th>No.</Th>
+                    <Th>Title</Th>
+                    <Th>Content</Th>
+                    <Th>Views</Th>
+                    <Th>URL</Th>
+                    <Th>Expiry (min)</Th>
+                    <Th>Date Created</Th>
+                  </Tr>
+                </Thead>
                 {snippetList.map((snip, idx) => {
                   const url = `${window.location.origin}/snip/${snip.id}`;
                   return (
@@ -264,9 +290,40 @@ const LandingPage = () => {
                     </Tr>
                   );
                 })}
-              </Thead>
-            </Table>
-          </TableContainer>
+              </Table>
+            </TableContainer>
+            <HStack w="100%" justifyContent="flex-end" zIndex={100} gap={2}>
+              {isFetching && <Text>Fetching data...</Text>}
+              <IconButton
+                aria-label="next page"
+                variant="ghost"
+                isRound
+                icon={<FaAngleLeft />}
+                fontSize="16px"
+                size="xs"
+                opacity="0.7"
+                _hover={{
+                  opacity: "1",
+                }}
+                isDisabled={snippetPage <= 1}
+                onClick={() => setSnippetPage(snippetPage - 1)}
+              />
+              <IconButton
+                aria-label="next page"
+                variant="ghost"
+                isRound
+                icon={<FaAngleRight />}
+                fontSize="16px"
+                size="xs"
+                opacity="0.7"
+                _hover={{
+                  opacity: "1",
+                }}
+                isDisabled={snippetPage > totalPages}
+                onClick={() => setSnippetPage(snippetPage + 1)}
+              />
+            </HStack>
+          </VStack>
         ) : (
           <Text>Create a snippet to see them appear here!</Text>
         )}

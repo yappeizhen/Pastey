@@ -13,5 +13,5 @@ export type GetSnippetRes = {
 };
 export type GetPaginatedSnippets = {
   snippets: GetSnippetRes[];
-  numPages: number;
+  totalNum: number;
 };

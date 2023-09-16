@@ -13,7 +13,7 @@ export class SnippetController {
     @Query('limit') limit: number,
     @Query('sortBy') sortBy: SortTypes,
     @Query('order') order: 'ASC' | 'DESC',
-  ): Promise<{ snippets: Snippet[]; numPages: number }> {
+  ): Promise<{ snippets: Snippet[]; totalNum: number }> {
     return await this.snippetService.getActiveSnippets({
       page,
       limit,
