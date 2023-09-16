@@ -230,7 +230,6 @@ const LandingPage = () => {
               <HStack
                 justifyContent={{ base: "center", sm: "flex-end" }}
                 alignItems={"center"}
-                mb={4}
               >
                 <FormLabel m={0}>Sort by: </FormLabel>
                 <Select
