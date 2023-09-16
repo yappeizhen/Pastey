@@ -11,10 +11,7 @@ Pastebin is an online content sharing service. It allows users to store and shar
 ## Table of Contents
 
 - [Getting Started](#getting-started)
-- [Deployment](#deployment)
-- [Generating Migrations](#generating-migrations)
-- [Testing](#testing)
-- [Common Errors](#common-errors)
+- [API Documentation](#api-documentation)
 
 ## Getting Started
 
