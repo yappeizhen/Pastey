@@ -22,8 +22,9 @@ import landingVector from "../assets/landing-vector.png";
 import { FaArrowDown } from "react-icons/fa";
 import { AppHeader } from "../components/AppHeader";
 import { useState } from "react";
-import { GetSnippetRes, useSnippetContext } from "../contexts/SnippetContext";
+import { useSnippetContext } from "../contexts/SnippetContext";
 import SnippetModal from "./SnippetModal";
+import { GetSnippetRes } from "../types/snippets";
 
 const moveDown = keyframes({
   "0%": {

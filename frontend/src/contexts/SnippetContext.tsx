@@ -1,19 +1,7 @@
 import { createContext, useState, useContext, ReactNode } from "react";
-import axios from "axios";
-import { BASE_URL } from "../constants/api";
+import { CreateSnippetReq, GetSnippetRes } from "../types/snippets";
+import { createSnippet, getSnippets } from "../api/snippets";
 
-export type CreateSnippetReq = {
-  title: string;
-  minsToExpiry: number;
-  content: string;
-};
-export type GetSnippetRes = {
-  id: number;
-  title: string;
-  minsToExpiry: number;
-  content: string;
-  dateCreated: Date;
-};
 type SnippetContextProps = {
   snippets: GetSnippetRes[];
   loadSnippets: () => Promise<void>;
@@ -30,14 +18,14 @@ export const SnippetProvider = ({ children }: { children: ReactNode }) => {
   const [snippets, setSnippets] = useState<GetSnippetRes[]>([]);
 
   const loadSnippets = async () => {
-    const response = await axios.get(`${BASE_URL}/snippets`); // replace with your API endpoint
-    setSnippets(response.data);
+    const snippets = await getSnippets();
+    setSnippets(snippets);
   };
 
   const addSnippet = async (snippetData: CreateSnippetReq) => {
-    const response = await axios.post(`${BASE_URL}/snippets`, snippetData);
-    setSnippets([...snippets, response.data]);
-    return response.data;
+    const newSnip = await createSnippet(snippetData);
+    setSnippets([...snippets, newSnip]);
+    return newSnip;
   };
 
   // Provide the state and functions to children

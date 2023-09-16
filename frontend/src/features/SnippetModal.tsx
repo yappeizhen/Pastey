@@ -11,7 +11,8 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { GetSnippetRes } from "../contexts/SnippetContext";
+import { GetSnippetRes } from "../types/snippets";
+
 const SnippetModal = ({
   isOpen,
   onClose,
