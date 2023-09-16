@@ -22,7 +22,7 @@ const SnippetModal = ({
   onClose: () => void;
   snippet: GetSnippetRes;
 }) => {
-  const url = `${window.location}snip/${snippet.id}`;
+  const url = `${window.location.origin}/snip/${snippet.id}`;
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />

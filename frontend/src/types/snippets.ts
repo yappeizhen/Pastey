@@ -6,6 +6,7 @@ export type CreateSnippetReq = {
 export type GetSnippetRes = {
   id: number;
   title: string;
+  views: string;
   minsToExpiry: number;
   content: string;
   dateCreated: Date;

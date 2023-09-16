@@ -27,12 +27,13 @@ const ViewSnippetsSection = () => {
               <Tr>
                 <Th>Title</Th>
                 <Th>Content</Th>
+                <Th>Views</Th>
                 <Th>URL</Th>
                 <Th>Expiry (min)</Th>
                 <Th>Date Created</Th>
               </Tr>
               {snippets.map((snip) => {
-                const url = `${window.location}snip/${snip.id}`;
+                const url = `${window.location.origin}/snip/${snip.id}`;
                 return (
                   <Tr key={snip.id}>
                     <Th maxW="300px" overflowX="clip">
@@ -41,6 +42,7 @@ const ViewSnippetsSection = () => {
                     <Th maxW="300px" overflowX="clip">
                       {snip.content}
                     </Th>
+                    <Th>{snip.views}</Th>
                     <Th maxW="300px" overflowX="clip">
                       <a href={url} target="_">
                         {url}

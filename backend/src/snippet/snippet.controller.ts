@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { SnippetService } from './snippet.service';
 import { Snippet } from '../entities/snippet.entity';
 
@@ -9,6 +9,11 @@ export class SnippetController {
   @Get()
   async getActiveSnippets(): Promise<Snippet[]> {
     return await this.snippetService.getActiveSnippets();
+  }
+
+  @Get(':id')
+  async getSnippetById(@Param('id') id: number): Promise<Snippet> {
+    return await this.snippetService.getSnippetById(id);
   }
 
   @Post()

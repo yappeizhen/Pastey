@@ -2,6 +2,11 @@ import axios from "axios";
 import { BASE_URL } from "../constants/api";
 import { CreateSnippetReq, GetSnippetRes } from "../types/snippets";
 
+export const getSnippet = async (id: number): Promise<GetSnippetRes> => {
+  const response = await axios.get(`${BASE_URL}/snippets/${id}`);
+  return response.data;
+};
+
 export const getSnippets = async (): Promise<GetSnippetRes[]> => {
   const response = await axios.get(`${BASE_URL}/snippets`);
   return response.data;

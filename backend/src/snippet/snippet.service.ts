@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, SelectQueryBuilder } from 'typeorm';
 import { Snippet } from '../entities/snippet.entity';
 
 @Injectable()
@@ -22,15 +22,29 @@ export class SnippetService {
     return await this.snippetRepository.save(snippet);
   }
 
-  async getActiveSnippets(): Promise<Snippet[]> {
+  getQueryWithExpiry = (): SelectQueryBuilder<Snippet> => {
     const currentDate = new Date();
-    const snippets = await this.snippetRepository
+    return this.snippetRepository
       .createQueryBuilder('snippet')
       .where(
         `(snippet.dateCreated + snippet.minsToExpiry * INTERVAL '1 minute') > :currentDate`,
         { currentDate: currentDate.toISOString() },
-      )
-      .getMany();
+      );
+  };
+
+  async getSnippetById(id: number): Promise<Snippet> {
+    const snippet = await this.getQueryWithExpiry().where({ id }).getOne();
+    if (!snippet) {
+      throw new NotFoundException(`Snippet with ID ${id} not found`);
+    }
+    // Increment views
+    const updateSnippet = { ...snippet, views: snippet.views + 1 };
+    this.snippetRepository.save(updateSnippet);
+    return updateSnippet;
+  }
+
+  async getActiveSnippets(): Promise<Snippet[]> {
+    const snippets = await this.getQueryWithExpiry().getMany();
     return snippets;
   }
 }
