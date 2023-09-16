@@ -117,7 +117,7 @@ Create a new snippet.
 #### Example Request
 
 ```sh
-curl -X POST http://localhost:3000/snippets -d '{"content":"Hello, world!", "title":"My Snippet", "minsToExpiry": 60}'
+curl -X POST http://localhost:8080/snippets -d '{"content":"Hello, world!", "title":"My Snippet", "minsToExpiry": 60}'
 ```
 
 #### Example Response
