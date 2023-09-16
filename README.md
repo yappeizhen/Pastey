@@ -30,7 +30,7 @@ Create a backend/.env file in your root folder by making a copy of backend/.env.
 - If you are running your own postgres (not via docker-compose), update the variables accordingly.
 
 ```sh
-cp backend/.env.example .env
+cp backend/.env.example backend/.env
 ```
 
 ### Run locally
@@ -67,7 +67,7 @@ Fetch a list of active snippets, with optional pagination and sorting.
 #### Example Request
 
 ```sh
-curl http://localhost:8080/snippets?page=1&limit=10&sortBy=dateCreated&order=DESC
+curl "http://localhost:8080/snippets?page=1&limit=10&sortBy=views&order=DESC"
 ```
 
 #### Example Response
@@ -81,7 +81,7 @@ curl http://localhost:8080/snippets?page=1&limit=10&sortBy=dateCreated&order=DES
 
 ### Get Snippet by ID
 
-Fetch a snippet by its ID.
+Fetch a snippet by its ID. Expired snippets will not be fetched, and a null value is returned.
 
 - **HTTP Method**: `GET`
 - **Endpoint**: `/snippets/:id`
@@ -117,7 +117,13 @@ Create a new snippet.
 #### Example Request
 
 ```sh
-curl -X POST http://localhost:8080/snippets -d '{"content":"Hello, world!", "title":"My Snippet", "minsToExpiry": 60}'
+curl -X POST "http://localhost:8080/snippets" \
+     -H "Content-Type: application/json" \
+     -d '{
+           "content": "Your Snippet Content Here",
+           "title": "Your Title Here",
+           "minsToExpiry": 60
+         }'
 ```
 
 #### Example Response
