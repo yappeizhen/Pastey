@@ -36,6 +36,7 @@ import SnippetModal from "../features/SnippetModal";
 import { createSnippet, getPaginatedSnippets } from "../api/snippets";
 import { SortTypes } from "../constants/sort";
 import { MAX_PER_PAGE } from "../constants/api";
+import AppFooter from "../components/AppFooter";
 
 const moveDown = keyframes({
   "0%": {
@@ -219,7 +220,7 @@ const LandingPage = () => {
         minH="100vh"
         bg="slate.50"
         p={{ base: 8, sm: 20 }}
-        gap={4}
+        gap={8}
         justifyContent="center"
         alignItems="center"
       >
@@ -232,6 +233,7 @@ const LandingPage = () => {
               <HStack
                 justifyContent={{ base: "center", sm: "flex-end" }}
                 alignItems={"center"}
+                mb={4}
               >
                 <FormLabel m={0}>Sort by: </FormLabel>
                 <Select
@@ -326,6 +328,7 @@ const LandingPage = () => {
                 onClick={() => setSnippetPage(snippetPage + 1)}
               />
             </HStack>
+            <AppFooter />
           </VStack>
         ) : (
           <Text>Create a snippet to see them appear here!</Text>

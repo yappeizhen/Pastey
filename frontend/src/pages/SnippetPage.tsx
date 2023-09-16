@@ -1,10 +1,10 @@
 import { Box, Flex, Spinner, Stack, Text } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { GetSnippetRes } from "../types/snippets";
 import { getSnippet } from "../api/snippets";
 import { LandingSection } from "../components/LandingSection";
 import { AppHeader } from "../components/AppHeader";
+import { GetSnippetRes } from "../types/snippets";
 
 const SnippetPage = () => {
   const navigate = useNavigate();
