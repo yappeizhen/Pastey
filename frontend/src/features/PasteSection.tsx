@@ -16,7 +16,6 @@ import {
   Textarea,
   VStack,
   keyframes,
-  useToast,
 } from "@chakra-ui/react";
 import { LandingSection } from "../components/LandingSection";
 import landingVector from "../assets/landing-vector.png";

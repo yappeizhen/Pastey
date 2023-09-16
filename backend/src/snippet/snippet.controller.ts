@@ -15,12 +15,12 @@ export class SnippetController {
   async create(
     @Body('content') content: string,
     @Body('title') title: string,
-    @Body('expiryTime') expiryTime?: string,
+    @Body('minsToExpiry') minsToExpiry?: string,
   ): Promise<Snippet> {
     return await this.snippetService.createSnippet(
       content,
       title,
-      expiryTime ? new Date(expiryTime) : null,
+      minsToExpiry ? new Date(minsToExpiry) : null,
     );
   }
 }

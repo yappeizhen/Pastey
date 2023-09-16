@@ -13,12 +13,12 @@ export class SnippetService {
   async createSnippet(
     content: string,
     title: string,
-    expiry?: Date,
+    minsToExpiry?: Date,
   ): Promise<Snippet> {
     const snippet = new Snippet();
     snippet.content = content;
     snippet.title = title;
-    snippet.expiry = expiry || null;
+    snippet.minsToExpiry = minsToExpiry || null;
     return await this.snippetRepository.save(snippet);
   }
 
@@ -26,7 +26,7 @@ export class SnippetService {
     const now = new Date();
     return await this.snippetRepository.find({
       where: {
-        expiry: MoreThan(now),
+        minsToExpiry: MoreThan(now),
       },
     });
   }

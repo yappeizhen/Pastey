@@ -15,5 +15,5 @@ export class Snippet {
   views: number;
 
   @Column({ nullable: true })
-  expiry: Date | null;
+  minsToExpiry: Date | null;
 }

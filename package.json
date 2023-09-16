@@ -8,6 +8,6 @@
     "start": "npm run start-frontend & npm run start-backend",
     "start-frontend": "cd ./frontend && npm run start",
     "start-backend": "cd ./backend && npm run start",
-    "start-full": "npm run start && docker-compose up -d"
+    "start-full": "docker-compose up -d && npm run start"
   }
 }
