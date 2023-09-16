@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, SelectQueryBuilder } from 'typeorm';
 import { Snippet } from '../entities/snippet.entity';
@@ -27,16 +27,14 @@ export class SnippetService {
     return this.snippetRepository
       .createQueryBuilder('snippet')
       .where(
-        `(snippet.dateCreated + snippet.minsToExpiry * INTERVAL '1 minute') > :currentDate`,
+        `(snippet.dateCreated + (snippet.minsToExpiry * INTERVAL '1 minute')) > :currentDate`,
         { currentDate: currentDate.toISOString() },
       );
   };
 
   async getSnippetById(id: number): Promise<Snippet> {
-    const snippet = await this.getQueryWithExpiry().where({ id }).getOne();
-    if (!snippet) {
-      throw new NotFoundException(`Snippet with ID ${id} not found`);
-    }
+    const snippet = await this.getQueryWithExpiry().andWhere({ id }).getOne();
+    if (!snippet) return null;
     // Increment views
     const updateSnippet = { ...snippet, views: snippet.views + 1 };
     this.snippetRepository.save(updateSnippet);

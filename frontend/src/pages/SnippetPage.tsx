@@ -1,13 +1,13 @@
-import { Box, Flex, Spinner, Stack, Text, VStack } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
+import { Box, Flex, Spinner, Stack, Text } from "@chakra-ui/react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { GetSnippetRes } from "../types/snippets";
 import { getSnippet } from "../api/snippets";
-import { redirect } from "react-router-dom";
 import { LandingSection } from "../components/LandingSection";
 import { AppHeader } from "../components/AppHeader";
 
 const SnippetPage = () => {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [snippet, setSnippet] = useState<GetSnippetRes | undefined>();
   const { id } = useParams();
@@ -40,7 +40,7 @@ const SnippetPage = () => {
     );
   }
 
-  if (!id || (!isLoading && !snippet)) redirect("/");
+  if (!id || (!isLoading && !snippet)) navigate("/");
   const url = `${window.location.origin}/snip/${snippet?.id}`;
 
   return (
@@ -62,9 +62,9 @@ const SnippetPage = () => {
               {snippet?.title}
             </Text>
             <Box border="1px" w="100%" borderColor="grey" p={4}>
-              <Text textStyle="body-1">
-                <pre>{snippet?.content}</pre>
-              </Text>
+              <pre>
+                <Text textStyle="body-1">{snippet?.content}</Text>
+              </pre>
             </Box>
           </Flex>
           <Flex flexDir="column" flex={1} gap={4}>

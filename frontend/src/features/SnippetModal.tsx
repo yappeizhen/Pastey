@@ -49,9 +49,9 @@ const SnippetModal = ({
               <Text textAlign="center" textStyle="subhead-3" mb={2}>
                 {snippet.title}
               </Text>
-              <Text textStyle="caption">
-                <pre>{snippet.content}</pre>
-              </Text>
+              <pre>
+                <Text textStyle="caption">{snippet.content}</Text>
+              </pre>
             </Box>
             <Box
               w="100%"

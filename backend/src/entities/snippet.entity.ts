@@ -22,6 +22,6 @@ export class Snippet {
   @Column('int')
   minsToExpiry: number;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamptz' })
   dateCreated: Date;
 }
