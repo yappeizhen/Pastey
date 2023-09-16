@@ -18,7 +18,7 @@ const ViewSnippetsSection = () => {
   }, [loadSnippets]);
 
   return (
-    <VStack w="full" h="100vh" bg="slate.50" p={100} gap={12}>
+    <VStack w="full" minH="100vh" bg="slate.50" p={100} gap={12}>
       <Text textStyle="h1">All Snippets</Text>
       {snippets.length > 0 ? (
         <TableContainer>
