@@ -23,7 +23,7 @@ In the root folder of the repository:
 $ npm install
 ```
 
-#### Environment Setup
+### Environment Setup
 
 Create a backend/.env file in your root folder by making a copy of backend/.env.example.
 
@@ -33,7 +33,7 @@ Create a backend/.env file in your root folder by making a copy of backend/.env.
 cp backend/.env.example .env
 ```
 
-#### Run locally
+### Run locally
 
 Start up the local development environment with full infrastructure by running:
 
@@ -114,7 +114,7 @@ Create a new snippet.
   - `content`: The content of the snippet (required).
   - `minsToExpiry`: The number of minutes before the snippet expires (required).
 
-### Example Request
+#### Example Request
 
 ```bash
 curl -X POST http://localhost:3000/snippets -d '{"content":"Hello, world!", "title":"My Snippet", "minsToExpiry": 60}'
