@@ -16,6 +16,8 @@ import {
   Stack,
   Table,
   TableContainer,
+  Tbody,
+  Td,
   Text,
   Textarea,
   Th,
@@ -263,32 +265,34 @@ const LandingPage = () => {
                     <Th>Date Created</Th>
                   </Tr>
                 </Thead>
-                {snippetList.map((snip, idx) => {
-                  const url = `${window.location.origin}/snip/${snip.id}`;
-                  return (
-                    <Tr key={snip.id}>
-                      <Th maxW="300px" overflowX="clip">
-                        {idx + 1}
-                      </Th>
-                      <Th maxW="300px" overflowX="clip">
-                        {snip.title}
-                      </Th>
-                      <Th maxW="300px" overflowX="clip">
-                        {snip.content}
-                      </Th>
-                      <Th>{snip.views}</Th>
-                      <Th maxW="300px" overflowX="clip">
-                        <a href={url} target="_">
-                          {url}
-                        </a>
-                      </Th>
-                      <Th maxW="300px" overflowX="clip">
-                        {snip.minsToExpiry}
-                      </Th>
-                      <Th>{new Date(snip.dateCreated).toLocaleString()}</Th>
-                    </Tr>
-                  );
-                })}
+                <Tbody textStyle={"body-1"}>
+                  {snippetList.map((snip, idx) => {
+                    const url = `${window.location.origin}/snip/${snip.id}`;
+                    return (
+                      <Tr key={snip.id}>
+                        <Td maxW="300px" overflowX="clip">
+                          {idx + 1}
+                        </Td>
+                        <Td maxW="300px" overflowX="clip">
+                          {snip.title}
+                        </Td>
+                        <Td maxW="300px" overflowX="clip">
+                          {snip.content}
+                        </Td>
+                        <Td>{snip.views}</Td>
+                        <Td maxW="300px" overflowX="clip">
+                          <a href={url} target="_">
+                            {url}
+                          </a>
+                        </Td>
+                        <Td maxW="300px" overflowX="clip">
+                          {snip.minsToExpiry}
+                        </Td>
+                        <Td>{new Date(snip.dateCreated).toLocaleString()}</Td>
+                      </Tr>
+                    );
+                  })}
+                </Tbody>
               </Table>
             </TableContainer>
             <HStack w="100%" justifyContent="flex-end" zIndex={100} gap={2}>
