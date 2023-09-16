@@ -20,7 +20,7 @@ Pastebin is an online content sharing service. It allows users to store and shar
 In the root folder of the repository:
 
 ```sh
-$ npm install
+npm install
 ```
 
 ### Environment Setup
@@ -38,7 +38,7 @@ cp backend/.env.example .env
 Start up the local development environment with full infrastructure by running:
 
 ```sh
-$ npm run start-full
+npm run start-full
 ```
 
 This should start up the frontend, backend, and a dockerized PosgreSQL database.
