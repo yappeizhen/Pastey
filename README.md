@@ -11,6 +11,7 @@ Pastey is an online content sharing service. It allows users to store and share 
 ## Table of Contents
 
 - [Getting Started](#getting-started)
+- [Running Tests](#running-tests)
 - [API Documentation](#api-documentation)
 
 ## Getting Started
@@ -43,6 +44,14 @@ This should start up the frontend, backend, and a dockerized PosgreSQL database.
 
 - Backend should now be served from http://localhost:8080
 - Frontend should be served from http://localhost:3000.
+
+# Running Tests
+
+In the root directory, run the following command to run jest on backend.
+
+```sh
+npm run test
+```
 
 # API Documentation
 

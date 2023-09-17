@@ -2,13 +2,14 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { SnippetService } from './snippet.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Snippet } from '../entities/snippet.entity';
+import { PastyConfigModule } from '../database/config.module';
 
 describe('SnippetService', () => {
   let service: SnippetService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [TypeOrmModule.forFeature([Snippet])],
+      imports: [PastyConfigModule, TypeOrmModule.forFeature([Snippet])],
       providers: [SnippetService],
     }).compile();
 
