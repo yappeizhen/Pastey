@@ -61,7 +61,7 @@ const LandingPage = () => {
   const [snippetContent, setSnippetContent] = useState<string | undefined>();
   const [newSnippet, setSnippet] = useState<GetSnippetRes | undefined>();
   const [snippetList, setSnippetList] = useState<GetSnippetRes[]>([]);
-  const [totalPages, setTotalPages] = useState<number>(1);
+  const [totalNumRows, setTotalNumRows] = useState<number>(1);
   const [snippetPage, setSnippetPage] = useState<number>(1);
   const [sortBy, setSortBy] = useState<SortTypes>(SortTypes.dateCreated);
 
@@ -71,9 +71,7 @@ const LandingPage = () => {
       .then((res) => {
         const { snippets, totalNum } = res;
         setSnippetList(snippets);
-        setTotalPages(
-          Math.floor(totalNum / MAX_PER_PAGE) + (totalNum % MAX_PER_PAGE)
-        );
+        setTotalNumRows(totalNum);
       })
       .catch((err) => console.error(err))
       .finally(() => setIsFetching(false));
@@ -89,6 +87,7 @@ const LandingPage = () => {
           content: snippetContent,
         });
         setSnippet(newSnippet);
+        setTotalNumRows(totalNumRows + 1);
       } catch (err) {
         console.error(err);
       } finally {
@@ -321,7 +320,9 @@ const LandingPage = () => {
                 _hover={{
                   opacity: "1",
                 }}
-                isDisabled={snippetPage >= totalPages}
+                isDisabled={
+                  snippetPage >= Math.ceil(totalNumRows / MAX_PER_PAGE)
+                }
                 onClick={() => setSnippetPage(snippetPage + 1)}
               />
             </HStack>
