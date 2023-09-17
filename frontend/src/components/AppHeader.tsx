@@ -10,7 +10,7 @@ export const AppHeader = (): JSX.Element => {
         align="center"
         py={{ base: "0.625rem", md: "3rem" }}
       >
-        <Text textStyle="responsive-heading.heavy">Pastebin Tool</Text>
+        <Text textStyle="responsive-heading.heavy">Pastey</Text>
       </Flex>
     </AppGrid>
   );

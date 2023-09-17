@@ -71,7 +71,9 @@ const LandingPage = () => {
       .then((res) => {
         const { snippets, totalNum } = res;
         setSnippetList(snippets);
-        setTotalPages(Math.floor(totalNum / MAX_PER_PAGE));
+        setTotalPages(
+          Math.floor(totalNum / MAX_PER_PAGE) + (totalNum % MAX_PER_PAGE)
+        );
       })
       .catch((err) => console.error(err))
       .finally(() => setIsFetching(false));
@@ -249,12 +251,7 @@ const LandingPage = () => {
                 </Select>
               </HStack>
             </FormControl>
-            <TableContainer
-              h={480}
-              w="full"
-              overflowY="scroll"
-              overflowX="scroll"
-            >
+            <TableContainer h={480} w="full" overflowY="auto" overflowX="auto">
               <Table>
                 <Thead>
                   <Tr>
@@ -324,16 +321,16 @@ const LandingPage = () => {
                 _hover={{
                   opacity: "1",
                 }}
-                isDisabled={snippetPage > totalPages}
+                isDisabled={snippetPage >= totalPages}
                 onClick={() => setSnippetPage(snippetPage + 1)}
               />
             </HStack>
-            <AppFooter />
           </VStack>
         ) : (
           <Text>Create a snippet to see them appear here!</Text>
         )}
       </VStack>
+      <AppFooter />
     </>
   );
 };
