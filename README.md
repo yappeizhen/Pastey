@@ -25,9 +25,7 @@ npm install
 
 ### Environment Setup
 
-Create a backend/.env file in your root folder by making a copy of backend/.env.example.
-
-- If you are running your own postgres (not via docker-compose), update the variables accordingly.
+Create a `.env` file in `/backend` by making a copy of `backend/.env.example`. If you are running your own postgres (not via docker-compose), update the variables accordingly.
 
 ```sh
 cp backend/.env.example backend/.env
