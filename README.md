@@ -129,8 +129,8 @@ curl -X POST "http://localhost:8080/snippets" \
 ```json
 {
   "id": 1,
-  "content": "Hello, world!",
-  "title": "My Snippet",
+  "content": "Your Snippet Content Here",
+  "title": "Your Title Here",
   "minsToExpiry": 60
 }
 ```
