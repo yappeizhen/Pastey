@@ -25,7 +25,7 @@ const AppFooter = () => {
       <FaGithubSquare
         cursor="pointer"
         onClick={() =>
-          window.open("https://github.com/yappeizhen/Pastebin", "_blank")
+          window.open("https://github.com/yappeizhen/Pastey", "_blank")
         }
       />
       <FaLinkedin

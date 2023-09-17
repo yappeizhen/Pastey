@@ -124,7 +124,7 @@ const LandingPage = () => {
                 <Image
                   display={{ md: "none", base: "flex" }}
                   src={landingVector}
-                  alt="pastebin hero"
+                  alt="pastey hero"
                   height={16}
                 />
                 <Text
@@ -200,7 +200,7 @@ const LandingPage = () => {
               aria-hidden
               justify="right"
             >
-              <Image src={landingVector} alt="pastebin hero" width={"100%"} />
+              <Image src={landingVector} alt="pastey hero" width={"100%"} />
             </Flex>
           </Stack>
         </LandingSection>

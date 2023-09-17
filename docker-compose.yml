@@ -6,11 +6,11 @@ services:
     ports:
       - 5433:5432 
     volumes:
-      - pastebin-postgres:/var/lib/postgresql/data
+      - pastey-postgres:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: pastebin
+      POSTGRES_DB: pastey
 
 volumes:
-  pastebin-postgres:
+  pastey-postgres:

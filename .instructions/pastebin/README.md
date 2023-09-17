@@ -2,11 +2,11 @@
 
 ## Objective
 
-Build a Snippet Sharing Service (like pastebin.com).
+Build a Snippet Sharing Service (like pastey.com).
 
-You are a Software Engineer working in a fictitious company. You have just been tasked to create a Minimal Viable Product (MVP) of "a clone of Pastebin for anonymous users".
+You are a Software Engineer working in a fictitious company. You have just been tasked to create a Minimal Viable Product (MVP) of "a clone of Pastey for anonymous users".
 
-Pastebin is often described as an online content sharing service. It allows users to store and share plain text snippets or code snippets easily. Users can paste their desired content into the platform, and it generates a unique URL for the paste, which can be shared with others. This URL can then be used to access and view the shared content.
+Pastey is often described as an online content sharing service. It allows users to store and share plain text snippets or code snippets easily. Users can paste their desired content into the platform, and it generates a unique URL for the paste, which can be shared with others. This URL can then be used to access and view the shared content.
 
 As the sole Software Engineer assigned to build this service, you are responsible for designing, implementing and deploying said service.
 
@@ -76,7 +76,7 @@ A: You are to evaluate and decide a suitable format for the generated URLs.
 
 ---
 
-Q: Must the front-end look like Pastebin?
+Q: Must the front-end look like Pastey?
 
 A: No, you are to implement a sensible front-end based on the specified requirements, preferably with good UI/UX.
 

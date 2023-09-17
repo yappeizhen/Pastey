@@ -16,7 +16,7 @@ describe('AppController', () => {
 
   describe('root', () => {
     it('should return healthcheck message"', () => {
-      expect(appController.getHello()).toBe('Pastebin is running! 🎉');
+      expect(appController.getHello()).toBe('Pastey is running! 🎉');
     });
   });
 });

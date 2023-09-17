@@ -74,7 +74,7 @@ const SnippetModal = ({
         </ModalBody>
         <ModalFooter>
           <Button colorScheme="blue" mr={3} onClick={onClose}>
-            Back to Pastebin
+            Back to Pastey
           </Button>
         </ModalFooter>
       </ModalContent>
